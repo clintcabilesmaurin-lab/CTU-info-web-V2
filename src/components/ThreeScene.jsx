@@ -27,9 +27,7 @@ export default function ThreeScene() {
 
     const sculpture = new THREE.Group();
     scene.add(sculpture);
-
-    const ambient = new THREE.AmbientLight(0xffffff, 1.6);
-    scene.add(ambient);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.6));
 
     const keyLight = new THREE.PointLight(0xf4bd55, 42, 18);
     keyLight.position.set(3, 3, 4);
@@ -53,13 +51,10 @@ export default function ThreeScene() {
     );
     sculpture.add(core);
 
-    const ringMaterial = new THREE.MeshBasicMaterial({
-      color: 0xe7b957,
-      transparent: true,
-      opacity: 0.72
-    });
-
-    const ringOne = new THREE.Mesh(new THREE.TorusGeometry(1.82, 0.012, 8, 180), ringMaterial);
+    const ringOne = new THREE.Mesh(
+      new THREE.TorusGeometry(1.82, 0.012, 8, 180),
+      new THREE.MeshBasicMaterial({ color: 0xe7b957, transparent: true, opacity: 0.72 })
+    );
     ringOne.rotation.set(0.8, 0.2, 0.45);
     sculpture.add(ringOne);
 
@@ -102,15 +97,18 @@ export default function ThreeScene() {
     );
     sculpture.add(particles);
 
-    const width = Math.max(host.clientWidth, 1);
-    const height = Math.max(host.clientHeight, 1);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-    renderer.setSize(width, height, false);
-    renderer.setClearColor(0x000000, 0);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    const resize = () => {
+      const width = Math.max(host.clientWidth, 1);
+      const height = Math.max(host.clientHeight, 1);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    };
+    resize();
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
     let frame = 0;
     let isVisible = true;
     let isPageVisible = !document.hidden;
@@ -122,9 +120,7 @@ export default function ThreeScene() {
       sculpture.rotation.x = reducedMotion ? -0.08 : Math.sin(clock.elapsedTime * 0.18) * 0.09;
       ringOne.rotation.z = 0.45 + (reducedMotion ? 0 : Math.sin(clock.elapsedTime * 0.12) * 0.08);
       renderer.render(scene, camera);
-      if (!reducedMotion && isVisible && isPageVisible) {
-        frame = window.requestAnimationFrame(render);
-      }
+      if (!reducedMotion && isVisible && isPageVisible) frame = window.requestAnimationFrame(render);
     };
 
     const start = () => {
@@ -133,15 +129,17 @@ export default function ThreeScene() {
       }
     };
 
-    const observer = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting;
-      if (isVisible) start();
-      else if (frame) {
-        window.cancelAnimationFrame(frame);
-        frame = 0;
-      }
-    });
-    observer.observe(host);
+    const observer = "IntersectionObserver" in window
+      ? new IntersectionObserver(([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) start();
+          else if (frame) {
+            window.cancelAnimationFrame(frame);
+            frame = 0;
+          }
+        })
+      : null;
+    observer?.observe(host);
 
     const onVisibilityChange = () => {
       isPageVisible = !document.hidden;
@@ -153,26 +151,21 @@ export default function ThreeScene() {
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
 
-    const resizeObserver = new ResizeObserver(() => {
-      const nextWidth = Math.max(host.clientWidth, 1);
-      const nextHeight = Math.max(host.clientHeight, 1);
-      renderer.setSize(nextWidth, nextHeight, false);
-      camera.aspect = nextWidth / nextHeight;
-      camera.updateProjectionMatrix();
-      renderer.render(scene, camera);
-    });
-    resizeObserver.observe(host);
+    const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(resize) : null;
+    resizeObserver?.observe(host);
+    if (!resizeObserver) window.addEventListener("resize", resize);
 
     renderer.render(scene, camera);
     start();
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
-      observer.disconnect();
-      resizeObserver.disconnect();
+      observer?.disconnect();
+      resizeObserver?.disconnect();
+      if (!resizeObserver) window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       sculpture.traverse((object) => {
-        if (object.geometry) object.geometry.dispose();
+        object.geometry?.dispose();
         if (object.material) {
           const materials = Array.isArray(object.material) ? object.material : [object.material];
           materials.forEach((material) => material.dispose());
