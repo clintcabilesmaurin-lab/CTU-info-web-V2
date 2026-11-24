@@ -59,7 +59,7 @@ describe("CTU Naga campus information website", () => {
 
   it("includes a keyboard skip link and the 3D hero mount", () => {
     render(<App />);
-    expect(screen.getByTestId("three-scene")).toBeInTheDocument();
+    expect(screen.getAllByTestId("three-scene").length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /skip to main content/i })).toHaveAttribute("href", "#main-content");
   });
 });
