@@ -50,6 +50,13 @@ describe("CTU Naga campus information website", () => {
     expect(screen.getByRole("heading", { name: /icpa capacity-building training/i })).toBeInTheDocument();
   });
 
+  it("includes two event cards and labels their dates as unconfirmed samples", () => {
+    render(<App />);
+    const events = document.getElementById("events");
+    expect(within(events).getAllByRole("article")).toHaveLength(2);
+    expect(within(events).getByText(/not confirmed CTU event announcements/i)).toBeInTheDocument();
+  });
+
   it("includes a keyboard skip link and the 3D hero mount", () => {
     render(<App />);
     expect(screen.getByTestId("three-scene")).toBeInTheDocument();
