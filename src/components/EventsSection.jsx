@@ -1,17 +1,19 @@
 import { officialLinks } from "../data/campus.js";
 
-const eventResources = [
+const sampleEvents = [
   {
     index: "01",
-    title: "Academic Calendar & Activities",
-    description: "Check official academic dates, campus activities, and university announcements before making plans.",
+    type: "ACADEMIC COMMUNITY",
+    title: "Campus Academic Forum",
+    description: "A sample event card for academic talks, learning sessions, and campus knowledge-sharing activities.",
     href: officialLinks.calendar,
-    action: "Open campus calendar"
+    action: "Check the official calendar"
   },
   {
     index: "02",
-    title: "Student Organizations & Campus Life",
-    description: "Explore student groups, cultural affairs, sports, wellness, and opportunities to take part in campus life.",
+    type: "STUDENT LIFE",
+    title: "Student Organizations Open House",
+    description: "A sample event card for student groups to introduce their activities and ways to get involved.",
     href: officialLinks.organizations,
     action: "Explore student activities"
   }
@@ -26,19 +28,24 @@ export default function EventsSection() {
             <p className="eyebrow"><span className="eyebrow-dot"></span> MAKE ROOM FOR WHAT'S NEXT</p>
             <h2 id="events-title">Be part of<br /><em>the moment.</em></h2>
           </div>
-          <p className="section-intro">Find the official campus calendar and activity channels. Dates are maintained by CTU, so use the official listings for confirmed schedules.</p>
+          <p className="section-intro">Discover activities and opportunities around campus. Confirm dates and registration details through the official CTU channels.</p>
         </div>
-        <div className="event-resources">
-          {eventResources.map((item) => (
-            <a className="event-resource reveal" href={item.href} target="_blank" rel="noreferrer" key={item.index}>
-              <span className="event-resource__index">{item.index}</span>
-              <span className="event-resource__content">
-                <strong>{item.title}</strong>
-                <span>{item.description}</span>
-                <b>{item.action} ↗</b>
-              </span>
-              <span className="event-resource__arrow" aria-hidden="true">↗</span>
-            </a>
+        <p className="events-note">The cards below are sample entries for the website assignment, not confirmed CTU event announcements. Check the official calendar for verified schedules.</p>
+        <div className="events-grid">
+          {sampleEvents.map((event) => (
+            <article className="event-card reveal" key={event.index}>
+              <div className="event-card__date">
+                <span>DATE</span>
+                <strong>TBA</strong>
+                <small>2026–2027</small>
+              </div>
+              <div className="event-card__body">
+                <span className="event-card__type">{event.type}</span>
+                <h3>{event.title}</h3>
+                <p>{event.description}</p>
+                <a href={event.href} target="_blank" rel="noreferrer">{event.action} <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
           ))}
         </div>
       </div>
