@@ -75,7 +75,7 @@ img { display: block; max-width: 100%; }
 .hero-index strong { font-family: var(--serif); font-size: 22px; }
 .hero-index small { color: rgba(255,255,255,.55); font-size: 7px; }
 .hero-side-note { position: absolute; right: -5px; top: 43%; color: rgba(255,255,255,.4); font-size: 8px; font-weight: 800; letter-spacing: .2em; writing-mode: vertical-rl; }
-.hero-bottom { position: absolute; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: space-between; padding: 15px max(32px,calc((100vw - var(--container))/2); border-top: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.42); font-size: 8px; font-weight: 800; letter-spacing: .18em; }
+.hero-bottom { position: absolute; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: space-between; padding: 15px max(32px,calc((100vw - var(--container))/2)); border-top: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.42); font-size: 8px; font-weight: 800; letter-spacing: .18em; }
 .hero-bottom span:last-child { width: 60px; height: 1px; background: var(--gold); }
 .stats-band { background: #e9e9df; }
 .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); padding-top: 28px; padding-bottom: 28px; }
@@ -233,3 +233,12 @@ img { display: block; max-width: 100%; }
   html { scroll-behavior: auto; }
   *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+.events-section { background: #f8f8f4; }
+.events-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+.event-card { padding: 30px; border: 1px solid var(--line); background: white; }
+.event-card-label { color: var(--red); font-size: 8px; font-weight: 800; letter-spacing: .17em; }
+.event-card h3 { max-width: 380px; margin: 20px 0 10px; font-family: var(--serif); font-size: 26px; font-weight: 600; }
+.event-card p { max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.event-card a { display: inline-flex; gap: 9px; margin-top: 13px; color: var(--red); font-size: 10px; font-weight: 800; }
+@media (max-width: 760px) { .events-grid { grid-template-columns: 1fr; } }

@@ -90,6 +90,7 @@ export default function App() {
             <a href="#news" onClick={closeMenu}>Campus News</a>
             <a href="#services" onClick={closeMenu}>Student Services</a>
             <a href="#programs" onClick={closeMenu}>Programs</a>
+            <a href="#events" onClick={closeMenu}>Events</a>
           </nav>
           <a className="header-cta" href="#contact">Get in touch <Arrow /></a>
         </div>
@@ -170,7 +171,7 @@ export default function App() {
                   <span className="program-number">0{index + 1}</span><span className="program-code">{program.code}</span><span className="program-name">{program.name}</span><span className="program-type">{program.type}</span><Arrow />
                 </a>)}
               </div>
-              <a className="text-link program-more" href="https://www.ctu.edu.ph/naga/academics/">View official academic information <Arrow /></a>
+              <a className="text-link program-more" aria-label="Undergraduate programs" href="https://www.ctu.edu.ph/naga/academics/undergraduate-programs/">View official academic information <Arrow /></a>
             </div>
           </section>
         </Reveal>
@@ -195,9 +196,36 @@ export default function App() {
         </Reveal>
 
         <Reveal>
+          <section className="section events-section" id="events">
+            <div className="container">
+              <div className="section-kicker" data-reveal>04 — CAMPUS CALENDAR</div>
+              <div className="section-heading section-heading-row" data-reveal>
+                <h2>Make room for <em>what's next.</em></h2>
+                <p>Use the official campus channels to confirm schedules, announcements, and student activities.</p>
+              </div>
+              <div className="events-grid">
+                <article className="event-card" data-reveal>
+                  <span className="event-card-label">CAMPUS ANNOUNCEMENTS</span>
+                  <h3>Academic calendar and important dates</h3>
+                  <p>Check the latest university notices before planning your semester.</p>
+                  <a href="https://www.ctu.edu.ph/naga/">Check official updates <Arrow /></a>
+                </article>
+                <article className="event-card" data-reveal>
+                  <span className="event-card-label">STUDENT ACTIVITIES</span>
+                  <h3>Activities and campus events</h3>
+                  <p>Follow CTU–Naga for confirmed activity details and announcements.</p>
+                  <a href="https://www.ctu.edu.ph/naga/">Visit campus news <Arrow /></a>
+                </article>
+              </div>
+              <p className="source-note">These are information links, not confirmed CTU event announcements. No event dates are invented.</p>
+            </div>
+          </section>
+        </Reveal>
+
+        <Reveal>
           <section className="section services-section" id="services" aria-label="Student services">
             <div className="container">
-              <div className="section-kicker" data-reveal>04 — SUPPORT FOR STUDENTS</div>
+              <div className="section-kicker" data-reveal>05 — SUPPORT FOR STUDENTS</div>
               <div className="section-heading section-heading-row" data-reveal>
                 <h2>Here to help you <em>move forward.</em></h2>
                 <p>Find the campus office or academic information you need. Office contacts and services can change, so use the official directory for the latest details.</p>
@@ -214,11 +242,11 @@ export default function App() {
         <section className="contact-section" id="contact">
           <div className="contact-orbit"><ThreeScene /></div>
           <div className="container contact-inner">
-            <div className="section-kicker">05 — CONNECT WITH THE CAMPUS</div>
+            <div className="section-kicker">06 — CONNECT WITH THE CAMPUS</div>
             <h2>Your next chapter<br /><em>starts here.</em></h2>
             <p>Need campus information? Reach out through the official CTU Naga contact channels.</p>
             <div className="contact-actions"><a className="button button-light" href="mailto:cdnaga@ctu.edu.ph">cdnaga@ctu.edu.ph <Arrow /></a><a className="contact-phone" href="tel:+63324895509">(032) 489-5509 / 489-5510</a></div>
-            <div className="contact-address">CENTRAL POBLACION, CITY OF NAGA, CEBU, PHILIPPINES</div>
+            <div className="contact-address">870 BONIFACIO ST, CENTRAL POBLACION, CITY OF NAGA, CEBU, PHILIPPINES</div>
           </div>
         </section>
       </main>
